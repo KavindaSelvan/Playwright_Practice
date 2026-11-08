@@ -18,6 +18,12 @@ await page.waitForTimeout(3000);
 await Email.fill("kavindh@gmail.com");
 await page.waitForTimeout(3000);
 
+//click and verify male radio btn is clicked
+await page.locator("[name='gender']").nth(0).click();
+console.log(await page.locator("[name='gender']").nth(0).isChecked());
+await expect(page.locator("[name='gender']").nth(0)).toBeChecked();
+
+
 await page.locator("#submit").click();
 
 });
