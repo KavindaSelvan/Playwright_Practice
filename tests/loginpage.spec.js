@@ -23,6 +23,16 @@ await page.locator("[name='gender']").nth(0).click();
 console.log(await page.locator("[name='gender']").nth(0).isChecked());
 await expect(page.locator("[name='gender']").nth(0)).toBeChecked();
 
+// await page.locator(".subjects-auto-complete__input-container.css-19bb58m").fill("Maths");
+
+await page.locator("[type*='checkbox']").nth(2).click();
+console.log(await page.locator("[type*='checkbox']").nth(2).isChecked());
+await expect(page.locator("[type*='checkbox']").nth(2)).toBeChecked();
+
+// await page.locator("#stateCity-label").selectOption("Uttar Pradesh");
+// await page.locator("#stateCity-label").selectOption("Lucknow");
+
+
 
 await page.locator("#submit").click();
 
