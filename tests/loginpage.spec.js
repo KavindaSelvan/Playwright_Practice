@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.only('first test', async ({ page }) => {
+test('first test', async ({ page }) => {
   
 await page.goto("https://demoqa.com/automation-practice-form");
 console.log(await page.title());
@@ -37,3 +37,5 @@ await expect(page.locator("[type*='checkbox']").nth(2)).toBeChecked();
 await page.locator("#submit").click();
 
 });
+
+

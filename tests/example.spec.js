@@ -51,5 +51,48 @@ test('first test', async ({ page }) => {
 
 
 
-  
 });
+
+test.only('Check add to cart', async ({ page }) => {
+  await page.goto("https://www.saucedemo.com/");
+
+  const userName = page.locator("#user-name");
+  const passWord = page.locator("#password");
+  const loginButton = page.locator("#login-button");
+
+  const products = page.locator(".inventory_item");
+  const cardTitles = page.locator(".inventory_item_name")
+  const productName = "Sauce Labs Fleece Jacket";
+
+  await userName.fill("standard_user")
+  await page.waitForTimeout(3000);
+
+  await passWord.fill("secret_sauce");
+  await page.waitForTimeout(3000);
+
+  await loginButton.click();
+  await page.waitForLoadState('networkidle'); //Wait until network requests stop for a short time.
+  
+  console.log(await cardTitles.allTextContents());
+  const count = await cardTitles.count();
+  for (let i = 0; i < count; i++) {
+    const title = await cardTitles.nth(i).textContent();
+
+    if (title.trim() === productName) {
+      await products.nth(i).getByRole('button', { name: 'Add to cart', exact: true }) .click();
+
+      // Check that the product was added
+      await expect(products.nth(i).getByRole('button', 
+        {
+          name: 'Remove',
+          exact: true
+        })
+      ).toBeVisible();
+
+      break;
+    }
+  }
+  await page.pause();
+});
+
+
